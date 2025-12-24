@@ -92,7 +92,7 @@ python3 client.py CalcAvgLoan -c 55001
 
 ### Partitioning Strategy Benefits
 
-![Performance Analysis](performance_analysis.png)
+![Performance Analysis](outputs/performance_analysis.png)
 
 The system demonstrates significant performance gains through intelligent partitioning:
 - **First Query (create)**: ~850ms - Scans full dataset, creates partition
