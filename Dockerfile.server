@@ -1,0 +1,19 @@
+FROM p4-hdfs
+WORKDIR /app
+
+RUN pip3 install --no-cache-dir --break-system-packages \
+    grpcio grpcio-tools pandas requests pyarrow SQLAlchemy mysql-connector-python hdfs
+
+COPY lender.proto .
+
+RUN python3 -m grpc_tools.protoc -I . \
+    --python_out=. \
+    --grpc_python_out=. \
+    lender.proto
+
+COPY server.py .
+COPY client.py .
+
+EXPOSE 5000
+
+CMD export CLASSPATH="$($HADOOP_HOME/bin/hdfs classpath --glob)" && python3 server.py
